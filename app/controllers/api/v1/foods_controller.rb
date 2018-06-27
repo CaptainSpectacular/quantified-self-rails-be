@@ -6,7 +6,8 @@ class Api::V1::FoodsController < ApplicationController
   end
 
   def create
-    Food.create(food_params)
+    food = Food.create(food_params)
+    render json: food
   end
 
   private
