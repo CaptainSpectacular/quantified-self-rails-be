@@ -1,7 +1,7 @@
 class Api::V1::MealsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_meal, only: [:show, :update]
-  before_action :set_food, only: [:update]
+  before_action :set_meal, only: [:show, :update, :destroy]
+  before_action :set_food, only: [:update, :destroy]
   
   def index
     render json: Meal.all
@@ -15,6 +15,11 @@ class Api::V1::MealsController < ApplicationController
     @meal.foods << @food
     render json: { message: "Successfully added #{@food.name} to #{@meal.name}" }
   
+  end
+
+  def destroy
+    @meal.foods.destroy(@food)
+    render json: { message: "Successfully removed #{@food.name} to #{@meal.name}" }
   end
 
   private
