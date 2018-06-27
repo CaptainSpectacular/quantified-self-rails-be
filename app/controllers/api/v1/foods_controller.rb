@@ -6,8 +6,11 @@ class Api::V1::FoodsController < ApplicationController
   end
 
   def create
-    food = Food.create(food_params)
-    render json: food
+    begin 
+      render json: Food.create!(food_params) 
+    rescue ActiveRecord::RecordInvalid => invalid
+      render json: invalid.record.errors, status: 400
+    end
   end
 
   private
