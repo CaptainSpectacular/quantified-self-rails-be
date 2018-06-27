@@ -1,9 +1,13 @@
 class Api::V1::FoodsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_food, only: [:destroy]
+  before_action :set_food, only: [:show, :destroy]
 
   def index
     render json: Food.all
+  end
+
+  def show
+    render json: @food
   end
 
   def create
