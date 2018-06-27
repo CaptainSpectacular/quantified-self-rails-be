@@ -1,6 +1,6 @@
 class Api::V1::FoodsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_food, only: [:show, :destroy]
+  before_action :set_food, only: [:show, :update, :destroy]
 
   def index
     render json: Food.all
@@ -16,6 +16,10 @@ class Api::V1::FoodsController < ApplicationController
     rescue ActiveRecord::RecordInvalid => invalid
       render json: invalid.record.errors, status: 400
     end
+  end
+
+  def update
+    render json: @food.update!(food_params)
   end
 
   def destroy
