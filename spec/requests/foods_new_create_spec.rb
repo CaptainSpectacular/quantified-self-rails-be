@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'POST /api/v1/foods' do
   describe 'with name and calories in parameters' do
     it 'adds the food to the database' do
-      post '/api/v1/foods?name=Cake&calories=100'
+      post '/api/v1/foods?name=Cake&calories=100', params: { food: { name: "Cake", calories: 100 } }
 
       food = Food.last
 
